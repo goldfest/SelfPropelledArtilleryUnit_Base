@@ -127,7 +127,7 @@ namespace SelfPropelledArtilleryUnit
             {
                 if (e.Data.GetDataPresent(typeof(Color)))
                 {
-                    _usta.EntityUsta_.BodyColor = (Color)e.Data.GetData(typeof(Color));
+                    _usta.EntityUsta.BodyColor = (Color)e.Data.GetData(typeof(Color));
 
                 }
                 DrawUsta();
@@ -136,7 +136,7 @@ namespace SelfPropelledArtilleryUnit
 
         private void LabelColor_DragEnter(object sender, DragEventArgs e)
         {
-            if (_usta != null && _usta.EntityUsta_ is EntityUstaBat entityustabat)
+            if (_usta != null && _usta.EntityUsta is EntityUstaBat entityustabat)
             {
                 labelDopColor.AllowDrop = true;
             }
@@ -155,7 +155,7 @@ namespace SelfPropelledArtilleryUnit
 
         private void LabelDopColor_DragDrop(object sender, DragEventArgs e)
         {
-            if (_usta != null && _usta.EntityUsta_ is EntityUstaBat entityustabat)
+            if (_usta != null && _usta.EntityUsta is EntityUstaBat entityustabat)
             {
                 if (e.Data.GetDataPresent(typeof(Color)))
                 {

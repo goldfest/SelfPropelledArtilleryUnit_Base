@@ -29,9 +29,9 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
        additionalColor, bool bodyKit, bool pushka, int width, int height) :
         base(speed, weight, bodyColor, width, height, 140, 90)
         {
-            if (EntityUsta_ != null)
+            if (EntityUsta != null)
             {
-                EntityUsta_ = new EntityUstaBat(speed, weight, bodyColor,
+                EntityUsta = new EntityUstaBat(speed, weight, bodyColor,
                 additionalColor, bodyKit, pushka);
             }
         }
@@ -39,14 +39,14 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
        
         public override void DrawTransport(Graphics g)
         {
-            if (EntityUsta_ is not EntityUstaBat ustaBat)
+            if (EntityUsta is not EntityUstaBat ustaBat)
             {
                 return;
             }
             Pen pen = new(Color.Black);
 
             Brush additionalBrush = new SolidBrush(ustaBat.AdditionalColor);
-            Brush BodyColor = new SolidBrush(EntityUsta_.BodyColor);
+            Brush BodyColor = new SolidBrush(EntityUsta.BodyColor);
 
             //зеленый темнее
             Color color1 = Color.FromArgb(65, 72, 51);
