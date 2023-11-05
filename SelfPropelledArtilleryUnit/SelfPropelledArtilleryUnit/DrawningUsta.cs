@@ -68,8 +68,8 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
         /// <param name="bodyColor">Основной цвет</param>
         /// <param name="width">Ширина картинки</param>
         /// <param name="height">Высота картинки</param>
-        /// <param name="carWidth">Ширина прорисовки установки</param>
-        /// <param name="carHeight">Высота прорисовки установки</param>
+        /// <param name="ustaWidth">Ширина прорисовки установки</param>
+        /// <param name="ustaHeight">Высота прорисовки установки</param>
         protected DrawningUsta(int speed, double weight, Color bodyColor, int
         width, int height, int ustaWidth, int ustaHeight)
         {
@@ -93,7 +93,7 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
         public void SetPosition(int x, int y)
         {
             // TODO: Изменение x, y, если при установке объект выходит за границы
-            if (x < 0 || y < 0)
+            if (x < 0 || y < 0 || x + _ustaWidth > _pictureWidth || y + _ustaHeight > _pictureHeight)
             {
                 x = 10;
                 y = 10;
