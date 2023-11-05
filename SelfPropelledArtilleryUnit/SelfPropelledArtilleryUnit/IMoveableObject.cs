@@ -31,6 +31,11 @@ namespace SelfPropelledArtilleryUnit.MovementStrategy
         /// </summary>
         /// <param name="direction">Направление</param>
         void MoveObject(DirectionType direction);
+
+        void SetPosition(int x, int y);
+
+        void Draw(Graphics g);
+
     }
 }
 

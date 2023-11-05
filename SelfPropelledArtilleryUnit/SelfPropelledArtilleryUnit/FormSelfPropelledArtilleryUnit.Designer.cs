@@ -38,6 +38,7 @@
             buttonLeft = new Button();
             buttonRight = new Button();
             pictureBoxUsta = new PictureBox();
+            ButtonSelectUsta = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxUsta).BeginInit();
             SuspendLayout();
             // 
@@ -83,8 +84,9 @@
             // 
             // buttonUp
             // 
+            buttonUp.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonUp.BackgroundImage = (Image)resources.GetObject("buttonUp.BackgroundImage");
-            buttonUp.Location = new Point(617, 314);
+            buttonUp.Location = new Point(622, 326);
             buttonUp.Name = "buttonUp";
             buttonUp.Size = new Size(50, 50);
             buttonUp.TabIndex = 4;
@@ -93,8 +95,9 @@
             // 
             // buttonDown
             // 
+            buttonDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonDown.BackgroundImage = (Image)resources.GetObject("buttonDown.BackgroundImage");
-            buttonDown.Location = new Point(617, 370);
+            buttonDown.Location = new Point(622, 382);
             buttonDown.Name = "buttonDown";
             buttonDown.Size = new Size(50, 50);
             buttonDown.TabIndex = 5;
@@ -103,8 +106,9 @@
             // 
             // buttonLeft
             // 
+            buttonLeft.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonLeft.BackgroundImage = (Image)resources.GetObject("buttonLeft.BackgroundImage");
-            buttonLeft.Location = new Point(561, 370);
+            buttonLeft.Location = new Point(566, 382);
             buttonLeft.Name = "buttonLeft";
             buttonLeft.Size = new Size(50, 50);
             buttonLeft.TabIndex = 6;
@@ -113,8 +117,9 @@
             // 
             // buttonRight
             // 
+            buttonRight.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonRight.BackgroundImage = (Image)resources.GetObject("buttonRight.BackgroundImage");
-            buttonRight.Location = new Point(673, 370);
+            buttonRight.Location = new Point(678, 382);
             buttonRight.Name = "buttonRight";
             buttonRight.Size = new Size(50, 50);
             buttonRight.TabIndex = 7;
@@ -131,11 +136,22 @@
             pictureBoxUsta.TabIndex = 8;
             pictureBoxUsta.TabStop = false;
             // 
+            // ButtonSelectUsta
+            // 
+            ButtonSelectUsta.Location = new Point(348, 393);
+            ButtonSelectUsta.Name = "ButtonSelectUsta";
+            ButtonSelectUsta.Size = new Size(157, 42);
+            ButtonSelectUsta.TabIndex = 9;
+            ButtonSelectUsta.Text = "Выбор";
+            ButtonSelectUsta.UseVisualStyleBackColor = true;
+            ButtonSelectUsta.Click += ButtonSelectUsta_Click;
+            // 
             // FormSelfPropelledArtilleryUnit
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(ButtonSelectUsta);
             Controls.Add(buttonRight);
             Controls.Add(buttonLeft);
             Controls.Add(buttonDown);
@@ -146,7 +162,7 @@
             Controls.Add(comboBoxStrategy);
             Controls.Add(pictureBoxUsta);
             Name = "FormSelfPropelledArtilleryUnit";
-            Text = "SelfPropelledArtilleryUnit";
+            Text = "Создание арт. установки";
             ((System.ComponentModel.ISupportInitialize)pictureBoxUsta).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -162,5 +178,6 @@
         private Button buttonLeft;
         private Button buttonRight;
         private PictureBox pictureBoxUsta;
+        private Button ButtonSelectUsta;
     }
 }

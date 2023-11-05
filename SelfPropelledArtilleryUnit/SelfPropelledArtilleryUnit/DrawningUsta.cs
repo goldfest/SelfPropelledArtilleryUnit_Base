@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SelfPropelledArtilleryUnit.Entities;
 using SelfPropelledArtilleryUnit.Drawnings;
 using System.Drawing.Drawing2D;
+using SelfPropelledArtilleryUnit.MovementStrategy;
 
 namespace SelfPropelledArtilleryUnit.DrawningObjects
 {
@@ -102,15 +103,11 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
             
         }
 
-        protected int PictureWidth
-        {
-            get { return _pictureWidth; }
-        }
+        /// <summary>
+        /// Получение объекта IMoveableObject из объекта DrawningUsta
+        /// </summary>
+        public IMoveableObject GetMoveableObject => new DrawningObjectUsta(this);
 
-        protected int PictureHeight
-        {
-            get { return _pictureHeight; }
-        }
         /// <summary>
         /// Изменение направления перемещения
         /// </summary>
@@ -201,7 +198,6 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
             Brush BodyColor = new SolidBrush(EntityUsta.BodyColor);
 
             //зеленый темнее
-            int lineWidth = 10;
             Color color1 = Color.FromArgb(65, 72, 51);
             Brush pen1 = new SolidBrush(color1);
 
@@ -229,7 +225,7 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
             path.CloseFigure(); // Замкнуть путь
 
             // отрисовка прямоугольника с кругленными краями
-            g.FillPath(pen1, path);
+            g.FillPath(BodyColor, path);
             g.DrawPath(pen, path);
 
 
@@ -238,7 +234,7 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
             g.FillEllipse(pen3, _startPosX + 77, _startPosY + 44, 13, 13);
 
 
-            g.FillRectangle(pen2, _startPosX + 45, _startPosY + 20, 40, 20);
+            g.FillRectangle(BodyColor, _startPosX + 45, _startPosY + 20, 40, 20);
             g.DrawRectangle(pen, _startPosX + 45, _startPosY + 20, 40, 20);
 
             g.DrawEllipse(pen, _startPosX + 40, _startPosY + 65, 13, 13);
@@ -246,7 +242,7 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
             g.DrawEllipse(pen, _startPosX + 70, _startPosY + 65, 13, 13);
             g.DrawEllipse(pen, _startPosX + 85, _startPosY + 65, 13, 13);
 
-            g.FillRectangle(pen2, _startPosX + 10, _startPosY + 40, 120, 10);
+            g.FillRectangle(BodyColor, _startPosX + 10, _startPosY + 40, 120, 10);
             g.DrawRectangle(pen, _startPosX + 10, _startPosY + 40, 120, 10);
 
             g.FillEllipse(pen3, _startPosX + 10, _startPosY + 52, 26, 26);

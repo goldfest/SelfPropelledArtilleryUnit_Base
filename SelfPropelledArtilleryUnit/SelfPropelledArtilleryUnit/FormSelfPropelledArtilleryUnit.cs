@@ -16,12 +16,21 @@ namespace SelfPropelledArtilleryUnit
         /// Стратегия перемещения
         /// </summary>
         private AbstractStrategy? _abstractStrategy;
+
+        /// <summary>
+        /// Выбранная установка
+        /// </summary>
+        public DrawningUsta? SelectedUsta { get; private set; }
+
         /// <summary>
         /// Инициализация формы
         /// </summary>
         public FormSelfPropelledArtilleryUnit()
         {
             InitializeComponent();
+            _abstractStrategy = null;
+            SelectedUsta = null;
+
         }
         /// <summary>
         /// Метод прорисовки установки
@@ -39,19 +48,33 @@ namespace SelfPropelledArtilleryUnit
             pictureBoxUsta.Image = bmp;
         }
         /// <summary>
-        /// Обработка нажатия кнопки "Создать установку с вооружением"
+        /// Обработка нажатия кнопки "Создать арт. установку с вооружением"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonCreateUstaBat_Click(object sender, EventArgs e)
         {
             Random random = new();
+
+            Color color = Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256));
+            //TODO выбор основного цвета
+            ColorDialog dialog = new();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                color = dialog.Color;
+            }
+            Color dopColor = Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256));
+            //TODO выбор дополнительного цвета
+            ColorDialog dialog_dop = new();
+            if (dialog_dop.ShowDialog() == DialogResult.OK)
+            {
+                dopColor = dialog_dop.Color;
+            }
+
             _drawningUsta = new DrawningUstaBat(random.Next(100, 300),
             random.Next(1000, 3000),
-            Color.FromArgb(random.Next(0, 256), random.Next(0, 256),
-            random.Next(0, 256)),
-            Color.FromArgb(random.Next(0, 256), random.Next(0, 256),
-            random.Next(0, 256)),
+            color,
+            dopColor,
             Convert.ToBoolean(random.Next(0, 2)), Convert.ToBoolean(random.Next(0, 2)),
             pictureBoxUsta.Width, pictureBoxUsta.Height);
             _drawningUsta.SetPosition(random.Next(10, 100), random.Next(10,
@@ -59,17 +82,24 @@ namespace SelfPropelledArtilleryUnit
             Draw();
         }
         /// <summary>
-        /// Обработка нажатия кнопки "Создать установку"
+        /// Обработка нажатия кнопки "Создать арт. установку"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonCreateUsta_Click(object sender, EventArgs e)
         {
             Random random = new();
+            Color color = Color.FromArgb(random.Next(0, 256),
+            random.Next(0, 256), random.Next(0, 256));
+            ColorDialog dialog = new();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                color = dialog.Color;
+            }
+
             _drawningUsta = new DrawningUsta(random.Next(100, 300),
             random.Next(1000, 3000),
-            Color.FromArgb(random.Next(0, 256), random.Next(0, 256),
-            random.Next(0, 256)),
+            color,
             pictureBoxUsta.Width, pictureBoxUsta.Height);
             _drawningUsta.SetPosition(random.Next(10, 100), random.Next(10,
             100));
@@ -146,6 +176,12 @@ namespace SelfPropelledArtilleryUnit
             }
 
 
+        }
+
+        private void ButtonSelectUsta_Click(object sender, EventArgs e)
+        {
+            SelectedUsta = _drawningUsta;
+            DialogResult = DialogResult.OK;
         }
     }
 }
