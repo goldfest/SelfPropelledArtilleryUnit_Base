@@ -105,26 +105,33 @@ namespace SelfPropelledArtilleryUnit
             {
                 return;
             }
-            var obj = _storage[listBoxStorage.SelectedItem.ToString() ??
-            string.Empty];
-            if (obj == null)
+
+            var formSelfPropelledArtilleryUnitConfig = new FormSelfPropelledArtilleryUnitConfig();
+
+            formSelfPropelledArtilleryUnitConfig.AddEvent(usta =>
             {
-                return;
-            }
-            FormSelfPropelledArtilleryUnit form = new();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                if (obj + form.SelectedUsta > -1)
+                if (listBoxStorage.SelectedIndex != -1)
                 {
-                    MessageBox.Show("Объект добавлен");
-                    pictureBoxCollection.Image = obj.ShowUsta();
+                    var obj = _storage[listBoxStorage.SelectedItem?.ToString() ?? string.Empty];
+                    if (obj != null)
+                    {
+                        if (obj + usta != 1)
+                        {
+                            MessageBox.Show("Объект добавлен");
+                            pictureBoxCollection.Image = obj.ShowUsta();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Не удалось добавить объект");
+                        }
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Не удалось добавить объект");
-                }
-            }
+            });
+
+            formSelfPropelledArtilleryUnitConfig.Show();
         }
+
+        
         /// <summary>
         /// Удаление объекта из набора
         /// </summary>

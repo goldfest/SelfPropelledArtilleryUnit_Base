@@ -10,7 +10,7 @@ namespace SelfPropelledArtilleryUnit.Entities
         /// <summary>
         /// Дополнительный цвет (для опциональных элементов)
         /// </summary>
-        public Color AdditionalColor { get; private set; }
+        public Color AdditionalColor { get; set; }
         /// <summary>
         /// Признак (опция) наличия батареи
         /// </summary>

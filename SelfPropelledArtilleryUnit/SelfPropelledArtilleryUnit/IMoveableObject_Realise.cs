@@ -10,7 +10,7 @@ using SelfPropelledArtilleryUnit.Drawnings;
 namespace SelfPropelledArtilleryUnit.MovementStrategy
 {
     /// <summary>
-    /// Реализация интерфейса IDrawningObject для работы с объектом DrawningUsta (паттерн Adapter)
+    /// Реализация интерфейса IDrawningObject для работы с объектом DrawningCar (паттерн Adapter)
 /// </summary>
     public class DrawningObjectUsta : IMoveableObject
     {
@@ -23,7 +23,7 @@ namespace SelfPropelledArtilleryUnit.MovementStrategy
         {
             get
             {
-                if (_drawningUsta == null || _drawningUsta.EntityUsta ==
+                if (_drawningUsta == null || _drawningUsta.EntityUsta_ ==
                 null)
                 {
                     return null;
@@ -32,7 +32,7 @@ namespace SelfPropelledArtilleryUnit.MovementStrategy
                 _drawningUsta.GetPosY, _drawningUsta.GetWidth, _drawningUsta.GetHeight);
             }
         }
-        public int GetStep => (int)(_drawningUsta?.EntityUsta?.Step ?? 0);
+        public int GetStep => (int)(_drawningUsta?.EntityUsta_?.Step ?? 0);
         public bool CheckCanMove(DirectionType direction) =>
         _drawningUsta?.CanMove(direction) ?? false;
         public void MoveObject(DirectionType direction) =>

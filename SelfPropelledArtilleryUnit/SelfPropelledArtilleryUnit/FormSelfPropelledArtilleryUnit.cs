@@ -33,7 +33,7 @@ namespace SelfPropelledArtilleryUnit
 
         }
         /// <summary>
-        /// Метод прорисовки машины
+        /// Метод прорисовки установки
         /// </summary>
         private void Draw()
         {

@@ -19,7 +19,7 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
         /// <summary>
         /// Класс-сущность
         /// </summary>
-        public EntityUsta? EntityUsta { get; protected set; }
+        public EntityUsta? EntityUsta_ { get; set; }
         /// <summary>
         /// Ширина окна
         /// </summary>
@@ -58,7 +58,7 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
             // TODO: Продумать проверки
             _pictureWidth = width;
             _pictureHeight = height;
-            EntityUsta = new EntityUsta(speed, weight, bodyColor);
+            EntityUsta_ = new EntityUsta(speed, weight, bodyColor);
         }
         /// <summary>
         /// Конструктор
@@ -83,8 +83,10 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
             _pictureHeight = height;
             _ustaWidth = ustaWidth;
             _ustaHeight = ustaHeight;
-            EntityUsta = new EntityUsta(speed, weight, bodyColor);
+            EntityUsta_ = new EntityUsta(speed, weight, bodyColor);
         }
+
+
         /// <summary>
         /// Установка позиции
         /// </summary>
@@ -141,20 +143,20 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
         /// <returns>true - можно переместится по указанному направлению</returns>
         public virtual bool CanMove(DirectionType direction)
         {
-            if (EntityUsta == null)
+            if (EntityUsta_ == null)
             {
                 return false;
             }
             return direction switch
             {
                 //влево
-                DirectionType.Left => _startPosX - EntityUsta.Step > 0,
-                //вверх
-                DirectionType.Up => _startPosY - EntityUsta.Step > 7,
+                DirectionType.Left => _startPosX - EntityUsta_.Step > 0,
+                //вверх 
+                DirectionType.Up => _startPosY - EntityUsta_.Step > 7,
                 // вправо
-                DirectionType.Right => _startPosX + EntityUsta.Step + _ustaWidth < _pictureWidth,// TODO: Продумать логику
+                DirectionType.Right => _startPosX + EntityUsta_.Step + _ustaWidth < _pictureWidth,// TODO: Продумать логику
                 //вниз
-                DirectionType.Down => _startPosY + EntityUsta.Step + _ustaHeight < _pictureHeight,// TODO: Продумать логику
+                DirectionType.Down => _startPosY + EntityUsta_.Step + _ustaHeight < _pictureHeight,// TODO: Продумать логику
                 _ => false,
             };
         }
@@ -165,37 +167,37 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
         public virtual void MoveTransport(DirectionType direction)
         {
             
-            if (!CanMove(direction) || EntityUsta == null)
+            if (!CanMove(direction) || EntityUsta_ == null)
             {
                 return;
             }
             switch (direction)
             {
                 case DirectionType.Left:
-                    _startPosX -= (int)EntityUsta.Step;
+                    _startPosX -= (int)EntityUsta_.Step;
                     break;
                 case DirectionType.Up:
-                    _startPosY -= (int)EntityUsta.Step;
+                    _startPosY -= (int)EntityUsta_.Step;
                     break;
                 case DirectionType.Right:
-                    _startPosX += (int)EntityUsta.Step;
+                    _startPosX += (int)EntityUsta_.Step;
                     break;
                 case DirectionType.Down:
-                    _startPosY += (int)EntityUsta.Step;
+                    _startPosY += (int)EntityUsta_.Step;
                     break;
             }
         }
 
         public virtual void DrawTransport(Graphics g)
         {
-            if (EntityUsta == null)
+            if (EntityUsta_ == null)
             {
                 return;
             }
             Pen pen = new(Color.Black);
 
             
-            Brush BodyColor = new SolidBrush(EntityUsta.BodyColor);
+            Brush BodyColor = new SolidBrush(EntityUsta_.BodyColor);
 
             //зеленый темнее
             int lineWidth = 10;
@@ -249,6 +251,10 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
             g.FillEllipse(pen3, _startPosX + 10, _startPosY + 52, 26, 26);
             g.FillEllipse(pen3, _startPosX + 105, _startPosY + 52, 26, 26);
         }
+
+
     }
+
+
 }
 

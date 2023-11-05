@@ -22,7 +22,7 @@ namespace SelfPropelledArtilleryUnit.Entities
         /// <summary>
         /// Основной цвет
         /// </summary>
-        public Color BodyColor { get; private set; }
+        public Color BodyColor { get; set; }
         /// <summary>
         /// Шаг перемещения установки
         /// </summary>
@@ -39,6 +39,7 @@ namespace SelfPropelledArtilleryUnit.Entities
             Weight = weight;
             BodyColor = bodyColor;
         }
+
     }
 }
 
