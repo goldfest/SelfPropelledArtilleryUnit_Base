@@ -24,7 +24,7 @@ namespace SelfPropelledArtilleryUnit.Entities
         /// Инициализация полей объекта-класса установки с вооружением
         /// </summary>
         /// <param name="speed">Скорость</param>
-        /// <param name="weight">Вес установки</param>
+        /// <param name="weight">Вес автомобиля</param>
         /// <param name="bodyColor">Основной цвет</param>
         /// <param name="additionalColor">Дополнительный цвет</param>
         /// <param name="pushka">Признак наличия пушки</param>

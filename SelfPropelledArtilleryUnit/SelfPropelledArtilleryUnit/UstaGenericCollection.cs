@@ -28,7 +28,7 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <summary>
         /// Размер занимаемого объектом места (высота)
         /// </summary>
-        private readonly int _placeSizeHeight = 100;
+        private readonly int _placeSizeHeight = 110;
         /// <summary>
         /// Набор объектов
         /// </summary>
@@ -70,7 +70,7 @@ namespace SelfPropelledArtilleryUnit.Generics
         public static bool operator -(UstaGenericCollection<T, U> collect, int
         pos)
         {
-            T? obj = collect._collection.Get(pos);
+            T? obj = collect._collection[pos];
             if (obj != null)
             {
                 return collect._collection.Remove(pos);
@@ -84,7 +84,7 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <returns></returns>
         public U? GetU(int pos)
         {
-            return (U?)_collection.Get(pos)?.GetMoveableObject;
+            return (U?)_collection[pos]?.GetMoveableObject;
         }
         /// <summary>
         /// Вывод всего набора объектов
@@ -111,7 +111,7 @@ namespace SelfPropelledArtilleryUnit.Generics
                 1; ++j)
                 {//линия разметки места
                     g.DrawLine(pen, i * _placeSizeWidth, j *
-                    _placeSizeHeight, i * _placeSizeWidth + _placeSizeWidth / 2 + 2, j *
+                    _placeSizeHeight, i * _placeSizeWidth + _placeSizeWidth / 2 + 2 , j *
                     _placeSizeHeight);
                 }
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i *
@@ -124,28 +124,29 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <param name="g"></param>
         private void DrawObjects(Graphics g)
         {
-            int c = 11;
-
-            for (int i = 0; i < _collection.Count; i++)
+            int c = 14;
+            foreach (var usta in _collection.GetUsta())
             {
-                if (i % 3 == 0 && i != 0)
+                if (usta != null)
                 {
-                    c = c - 3;
 
-                }
-                T? obj = _collection.Get(i);
-                if (obj != null)
-                {
-                    // Получение объекта
-                    IMoveableObject moveableObject = obj.GetMoveableObject;
-                    // Установка позиции
+                    int index = _collection.GetUsta().ToList().IndexOf(usta);
+                    if (index % 3 == 0 && index != 0)
+                    {
+                        c = c - 3;
 
-                    int x = i % (_pictureWidth / _placeSizeWidth) * _placeSizeWidth + 3;
-                    int y = c / (_pictureWidth / _placeSizeWidth) * _placeSizeHeight + 10;
-                    moveableObject.SetPosition(x, y);
+                    }
+                    // TODO получение объекта
+                    // TODO установка позиции
+                    // TODO прорисовка объекта
+                    // Установка позиции объекта
+
+                    int posX = index % (_pictureWidth / _placeSizeWidth) * _placeSizeWidth + 3;
+                    int posY = c / (_pictureWidth / _placeSizeWidth) * _placeSizeHeight + 15;
 
                     // Прорисовка объекта
-                    moveableObject.Draw(g);
+                    usta.SetPosition(posX, posY);
+                    usta.DrawTransport(g);
                 }
             }
         }

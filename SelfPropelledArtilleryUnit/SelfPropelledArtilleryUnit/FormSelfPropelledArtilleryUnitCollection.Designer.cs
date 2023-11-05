@@ -34,14 +34,21 @@
             pictureBoxCollection = new PictureBox();
             maskedTextBoxNumber = new MaskedTextBox();
             groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
+            listBoxStorage = new ListBox();
+            ButtonDelObject = new Button();
+            ButtonAddObject = new Button();
+            textBoxStorageName = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCollection).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // ButtonAddUsta
             // 
-            ButtonAddUsta.Location = new Point(665, 45);
+            ButtonAddUsta.Location = new Point(26, 314);
             ButtonAddUsta.Name = "ButtonAddUsta";
-            ButtonAddUsta.Size = new Size(166, 31);
+            ButtonAddUsta.Size = new Size(166, 40);
             ButtonAddUsta.TabIndex = 0;
             ButtonAddUsta.Text = "Добавить арт. установку";
             ButtonAddUsta.UseVisualStyleBackColor = true;
@@ -49,9 +56,9 @@
             // 
             // ButtonRemoveUsta
             // 
-            ButtonRemoveUsta.Location = new Point(665, 129);
+            ButtonRemoveUsta.Location = new Point(26, 400);
             ButtonRemoveUsta.Name = "ButtonRemoveUsta";
-            ButtonRemoveUsta.Size = new Size(166, 31);
+            ButtonRemoveUsta.Size = new Size(166, 39);
             ButtonRemoveUsta.TabIndex = 1;
             ButtonRemoveUsta.Text = "Удалить арт. установку";
             ButtonRemoveUsta.UseVisualStyleBackColor = true;
@@ -59,9 +66,9 @@
             // 
             // ButtonRefreshCollection
             // 
-            ButtonRefreshCollection.Location = new Point(665, 215);
+            ButtonRefreshCollection.Location = new Point(26, 478);
             ButtonRefreshCollection.Name = "ButtonRefreshCollection";
-            ButtonRefreshCollection.Size = new Size(166, 31);
+            ButtonRefreshCollection.Size = new Size(166, 40);
             ButtonRefreshCollection.TabIndex = 2;
             ButtonRefreshCollection.Text = "Обновить коллекцию";
             ButtonRefreshCollection.UseVisualStyleBackColor = true;
@@ -71,7 +78,7 @@
             // 
             pictureBoxCollection.Location = new Point(0, 0);
             pictureBoxCollection.Name = "pictureBoxCollection";
-            pictureBoxCollection.Size = new Size(643, 423);
+            pictureBoxCollection.Size = new Size(637, 583);
             pictureBoxCollection.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCollection.TabIndex = 3;
             pictureBoxCollection.TabStop = false;
@@ -79,7 +86,7 @@
             // maskedTextBoxNumber
             // 
             maskedTextBoxNumber.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            maskedTextBoxNumber.Location = new Point(695, 100);
+            maskedTextBoxNumber.Location = new Point(56, 371);
             maskedTextBoxNumber.Mask = "00";
             maskedTextBoxNumber.Name = "maskedTextBoxNumber";
             maskedTextBoxNumber.Size = new Size(100, 22);
@@ -88,29 +95,83 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(groupBox2);
+            groupBox1.Controls.Add(ButtonAddUsta);
+            groupBox1.Controls.Add(ButtonRefreshCollection);
+            groupBox1.Controls.Add(maskedTextBoxNumber);
+            groupBox1.Controls.Add(ButtonRemoveUsta);
             groupBox1.Location = new Point(643, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(209, 411);
+            groupBox1.Size = new Size(209, 533);
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Инструменты";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(listBoxStorage);
+            groupBox2.Controls.Add(ButtonDelObject);
+            groupBox2.Controls.Add(ButtonAddObject);
+            groupBox2.Controls.Add(textBoxStorageName);
+            groupBox2.Location = new Point(6, 22);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(197, 274);
+            groupBox2.TabIndex = 6;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Наборы";
+            // 
+            // listBoxStorage
+            // 
+            listBoxStorage.FormattingEnabled = true;
+            listBoxStorage.ItemHeight = 15;
+            listBoxStorage.Location = new Point(20, 106);
+            listBoxStorage.Name = "listBoxStorage";
+            listBoxStorage.Size = new Size(158, 109);
+            listBoxStorage.TabIndex = 9;
+            listBoxStorage.SelectedIndexChanged += listBoxStorage_SelectedIndexChanged;
+            // 
+            // ButtonDelObject
+            // 
+            ButtonDelObject.Location = new Point(33, 235);
+            ButtonDelObject.Name = "ButtonDelObject";
+            ButtonDelObject.Size = new Size(136, 33);
+            ButtonDelObject.TabIndex = 8;
+            ButtonDelObject.Text = "Удалить набор";
+            ButtonDelObject.UseVisualStyleBackColor = true;
+            ButtonDelObject.Click += ButtonDelObject_Click;
+            // 
+            // ButtonAddObject
+            // 
+            ButtonAddObject.Location = new Point(33, 54);
+            ButtonAddObject.Name = "ButtonAddObject";
+            ButtonAddObject.Size = new Size(136, 33);
+            ButtonAddObject.TabIndex = 7;
+            ButtonAddObject.Text = "Добавить набор";
+            ButtonAddObject.UseVisualStyleBackColor = true;
+            ButtonAddObject.Click += ButtonAddObject_Click;
+            // 
+            // textBoxStorageName
+            // 
+            textBoxStorageName.Location = new Point(20, 22);
+            textBoxStorageName.Name = "textBoxStorageName";
+            textBoxStorageName.Size = new Size(158, 23);
+            textBoxStorageName.TabIndex = 0;
             // 
             // FormSelfPropelledArtilleryUnitCollection
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(859, 435);
-            Controls.Add(ButtonRefreshCollection);
-            Controls.Add(ButtonRemoveUsta);
-            Controls.Add(maskedTextBoxNumber);
-            Controls.Add(ButtonAddUsta);
+            ClientSize = new Size(867, 584);
             Controls.Add(groupBox1);
             Controls.Add(pictureBoxCollection);
             Name = "FormSelfPropelledArtilleryUnitCollection";
             Text = "Набор арт. установок";
             ((System.ComponentModel.ISupportInitialize)pictureBoxCollection).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -121,5 +182,10 @@
         private PictureBox pictureBoxCollection;
         private MaskedTextBox maskedTextBoxNumber;
         private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private TextBox textBoxStorageName;
+        private ListBox listBoxStorage;
+        private Button ButtonDelObject;
+        private Button ButtonAddObject;
     }
 }
