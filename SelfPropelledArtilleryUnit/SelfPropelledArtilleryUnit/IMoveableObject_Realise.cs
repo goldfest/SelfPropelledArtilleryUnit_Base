@@ -10,7 +10,7 @@ using SelfPropelledArtilleryUnit.Drawnings;
 namespace SelfPropelledArtilleryUnit.MovementStrategy
 {
     /// <summary>
-    /// Реализация интерфейса IDrawningObject для работы с объектом DrawningCar (паттерн Adapter)
+    /// Реализация интерфейса IDrawningObject для работы с объектом DrawningUsta (паттерн Adapter)
 /// </summary>
     public class DrawningObjectUsta : IMoveableObject
     {
