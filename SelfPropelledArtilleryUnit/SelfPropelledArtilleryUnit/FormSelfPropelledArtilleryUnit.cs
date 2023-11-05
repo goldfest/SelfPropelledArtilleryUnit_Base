@@ -1,12 +1,31 @@
+using SelfPropelledArtilleryUnit.DrawningObjects;
+using SelfPropelledArtilleryUnit.Drawnings;
+using SelfPropelledArtilleryUnit.MovementStrategy;
 namespace SelfPropelledArtilleryUnit
 {
+    /// <summary>
+    /// Форма работы с объектом "Установка с вооружением"
+    /// </summary>
     public partial class FormSelfPropelledArtilleryUnit : Form
     {
+        /// <summary>
+        /// Поле-объект для прорисовки объекта
+        /// </summary>
         private DrawningUsta? _drawningUsta;
+        /// <summary>
+        /// Стратегия перемещения
+        /// </summary>
+        private AbstractStrategy? _abstractStrategy;
+        /// <summary>
+        /// Инициализация формы
+        /// </summary>
         public FormSelfPropelledArtilleryUnit()
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// Метод прорисовки установки
+        /// </summary>
         private void Draw()
         {
             if (_drawningUsta == null)
@@ -20,28 +39,48 @@ namespace SelfPropelledArtilleryUnit
             pictureBoxUsta.Image = bmp;
         }
         /// <summary>
-        /// Обработка нажатия кнопки "Создать"
+        /// Обработка нажатия кнопки "Создать установку с вооружением"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
-
-        private void buttonCreate_Click(object sender, EventArgs e)
+        private void ButtonCreateUstaBat_Click(object sender, EventArgs e)
         {
             Random random = new();
-            _drawningUsta = new DrawningUsta();
-            _drawningUsta.Init(random.Next(100, 300), random.Next(1000, 3000),
-            Color.FromArgb(30, 89, 69),
-            Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256)),
-            Convert.ToBoolean(random.Next(0, 2)),
-            Convert.ToBoolean(random.Next(0, 2)),
-            pictureBoxUsta.Width,
-            pictureBoxUsta.Height);
-            _drawningUsta.SetPosition(random.Next(10, 100), random.Next(10, 100));
+            _drawningUsta = new DrawningUstaBat(random.Next(100, 300),
+            random.Next(1000, 3000),
+            Color.FromArgb(random.Next(0, 256), random.Next(0, 256),
+            random.Next(0, 256)),
+            Color.FromArgb(random.Next(0, 256), random.Next(0, 256),
+            random.Next(0, 256)),
+            Convert.ToBoolean(random.Next(0, 2)), Convert.ToBoolean(random.Next(0, 2)),
+            pictureBoxUsta.Width, pictureBoxUsta.Height);
+            _drawningUsta.SetPosition(random.Next(10, 100), random.Next(10,
+            100));
             Draw();
         }
-
-        private void buttonMove_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Обработка нажатия кнопки "Создать установку"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonCreateUsta_Click(object sender, EventArgs e)
+        {
+            Random random = new();
+            _drawningUsta = new DrawningUsta(random.Next(100, 300),
+            random.Next(1000, 3000),
+            Color.FromArgb(random.Next(0, 256), random.Next(0, 256),
+            random.Next(0, 256)),
+            pictureBoxUsta.Width, pictureBoxUsta.Height);
+            _drawningUsta.SetPosition(random.Next(10, 100), random.Next(10,
+            100));
+            Draw();
+        }
+        /// <summary>
+        /// Изменение положения установки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonMove_Click(object sender, EventArgs e)
         {
             if (_drawningUsta == null)
             {
@@ -65,6 +104,48 @@ namespace SelfPropelledArtilleryUnit
             }
             Draw();
         }
+        /// <summary>
+        /// Обработка нажатия кнопки "Шаг"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonStep_Click(object sender, EventArgs e)
+        {
+            if (_drawningUsta == null)
+            {
+                return;
+            }
+            if (comboBoxStrategy.Enabled)
+            {
+                _abstractStrategy = comboBoxStrategy.SelectedIndex
+                switch
+                {
+                    0 => new MoveToCenter(),
+                    1 => new MoveToBorder(),
+                    _ => null,
+                };
+                if (_abstractStrategy == null)
+                {
+                    return;
+                }
+                _abstractStrategy.SetData(new
+                DrawningObjectUsta(_drawningUsta), pictureBoxUsta.Width,
+                pictureBoxUsta.Height);
+                comboBoxStrategy.Enabled = false;
+            }
+            if (_abstractStrategy != null)
+            {
+                _abstractStrategy.MakeStep();
+                Draw();
 
+                if (_abstractStrategy.GetStatus() == Status.Finish)
+                {
+                    comboBoxStrategy.Enabled = true;
+                    _abstractStrategy = null;
+                }
+            }
+
+
+        }
     }
 }

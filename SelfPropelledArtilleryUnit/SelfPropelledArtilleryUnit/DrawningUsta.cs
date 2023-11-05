@@ -1,126 +1,195 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SelfPropelledArtilleryUnit
+using SelfPropelledArtilleryUnit.Entities;
+using SelfPropelledArtilleryUnit.Drawnings;
+using System.Drawing.Drawing2D;
+
+namespace SelfPropelledArtilleryUnit.DrawningObjects
 {
+    /// <summary>
+    /// Класс, отвечающий за прорисовку и перемещение объекта-сущности
+    /// </summary>
     public class DrawningUsta
     {
-        private int lineWidth;
+        /// <summary>
         /// Класс-сущность
-        public EntityUsta? EntityUsta { get; private set; }
-            /// Ширина окна
-            private int _pictureWidth;
-            /// Высота окна
-            private int _pictureHeight;
-            /// Левая координата прорисовки установки
-            private int _startPosX;
-            /// Верхняя кооридната прорисовки установки
-            private int _startPosY;
-            /// Ширина прорисовки установки
-            private readonly int _ustaWidth = 140;
-            /// Высота прорисовки установки
-            private readonly int _ustaHeight = 90;
-            /// Инициализация свойств
-            /// <param name="speed">Скорость</param>
-            /// <param name="weight">Вес</param>
-            /// <param name="bodyColor">Общий цвет</param>
-            /// <param name="additionalColor">Дополнительный цвет</param>
-            /// <param name="bodyKit">Признак наличия батареи</param>
-            /// <param name="pushka">Признак наличия пушки</param>
-            /// <param name="width">Ширина картинки</param>
-            /// <param name="height">Высота картинки</param>
-            /// <returns>true - объект создан, false - проверка не пройдена,
-            public bool Init(int speed, double weight, Color bodyColor, Color additionalColor, bool bodyKit, bool pushka, int width, int height){
-                if (width < _pictureWidth || height < _pictureHeight)
-                {
-                return false;
-                }
-                _pictureWidth = width;
-                _pictureHeight = height;
-                EntityUsta = new EntityUsta();
-                EntityUsta.Init(speed, weight, bodyColor, additionalColor,
-                bodyKit, pushka);
-                return true;
+        /// </summary>
+        public EntityUsta? EntityUsta { get; protected set; }
+        /// <summary>
+        /// Ширина окна
+        /// </summary>
+        private int _pictureWidth;
+        /// <summary>
+        /// Высота окна
+        /// </summary>
+        private int _pictureHeight;
+        /// <summary>
+        /// Левая координата прорисовки установки
+        /// </summary>
+        protected int _startPosX;
+        /// <summary>
+        /// Верхняя кооридната прорисовки установки
+        /// </summary>
+        protected int _startPosY;
+        /// <summary>
+        /// Ширина прорисовки установки
+        /// </summary>
+        protected readonly int _ustaWidth = 140;
+        /// <summary>
+        /// Высота прорисовки установки
+        /// </summary>
+        protected readonly int _ustaHeight = 90;
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="speed">Скорость</param>
+        /// <param name="weight">Вес</param>
+        /// <param name="bodyColor">Основной цвет</param>
+        /// <param name="width">Ширина картинки</param>
+        /// <param name="height">Высота картинки</param>
+        public DrawningUsta(int speed, double weight, Color bodyColor, int
+        width, int height)
+        {
+            // TODO: Продумать проверки
+            _pictureWidth = width;
+            _pictureHeight = height;
+            EntityUsta = new EntityUsta(speed, weight, bodyColor);
+        }
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="speed">Скорость</param>
+        /// <param name="weight">Вес</param>
+        /// <param name="bodyColor">Основной цвет</param>
+        /// <param name="width">Ширина картинки</param>
+        /// <param name="height">Высота картинки</param>
+        /// <param name="ustaWidth">Ширина прорисовки установки</param>
+        /// <param name="ustaHeight">Высота прорисовки установки</param>
+        protected DrawningUsta(int speed, double weight, Color bodyColor, int
+        width, int height, int ustaWidth, int ustaHeight)
+        {
+            // TODO: Продумать проверки
+            if (width <= _pictureWidth || height <= _pictureHeight)
+            {
+                return;
             }
+            
+            _pictureWidth = width;
+            _pictureHeight = height;
+            _ustaWidth = ustaWidth;
+            _ustaHeight = ustaHeight;
+            EntityUsta = new EntityUsta(speed, weight, bodyColor);
+        }
+        /// <summary>
         /// Установка позиции
+        /// </summary>
         /// <param name="x">Координата X</param>
         /// <param name="y">Координата Y</param>
         public void SetPosition(int x, int y)
         {
-            // TODO: Изменение x, y
-            if (x <= _pictureWidth - _ustaWidth && y <= _pictureHeight - _ustaHeight)
+            // TODO: Изменение x, y, если при установке объект выходит за границы
+            if (x < 0 || y < 0 || x + _ustaWidth > _pictureWidth || y + _ustaHeight > _pictureHeight)
             {
-                _startPosX = x;
-                _startPosY = y;
+                x = 10;
+                y = 10;
             }
+            _startPosX = x;
+            _startPosY = y;
+            
         }
+
+        protected int PictureWidth
+        {
+            get { return _pictureWidth; }
+        }
+
+        protected int PictureHeight
+        {
+            get { return _pictureHeight; }
+        }
+        /// <summary>
         /// Изменение направления перемещения
+        /// </summary>
         /// <param name="direction">Направление</param>
-        public void MoveTransport(DirectionType direction)
+
+        /// <summary>
+        /// Прорисовка объекта
+        /// </summary>
+        /// <param name="g"></param>
+        /// <summary>
+        /// Координата X объекта
+        /// </summary>
+        public int GetPosX => _startPosX;
+        /// <summary>
+        /// Координата Y объекта
+        /// </summary>
+        public int GetPosY => _startPosY;
+        /// <summary>
+        /// Ширина объекта
+        /// </summary>
+        public int GetWidth => _ustaWidth;
+        /// <summary>
+        /// Высота объекта
+        /// </summary>
+        public int GetHeight => _ustaHeight;
+
+        /// <summary>
+        /// Проверка, что объект может переместится по указанному направлению
+        /// </summary>
+        /// <param name="direction">Направление</param>
+        /// <returns>true - можно переместится по указанному направлению</returns>
+        public virtual bool CanMove(DirectionType direction)
         {
             if (EntityUsta == null)
-               
+            {
+                return false;
+            }
+            return direction switch
+            {
+                //влево
+                DirectionType.Left => _startPosX - EntityUsta.Step > 0,
+                //вверх
+                DirectionType.Up => _startPosY - EntityUsta.Step > 7,
+                // вправо
+                DirectionType.Right => _startPosX + EntityUsta.Step + _ustaWidth < _pictureWidth,// TODO: Продумать логику
+                //вниз
+                DirectionType.Down => _startPosY + EntityUsta.Step + _ustaHeight < _pictureHeight,// TODO: Продумать логику
+                _ => false,
+            };
+        }
+        /// <summary>
+        /// Изменение направления перемещения
+        /// </summary>
+        /// <param name="direction">Направление</param>
+        public virtual void MoveTransport(DirectionType direction)
+        {
+            
+            if (!CanMove(direction) || EntityUsta == null)
             {
                 return;
             }
             switch (direction)
             {
-                //влево
                 case DirectionType.Left:
-                    if (_startPosX - EntityUsta.Step > 0)
-                    {
-                        _startPosX -= (int)EntityUsta.Step;
-                    }
-                    if (_startPosX - EntityUsta.Step < 0)
-                    {
-                        _startPosX -= _startPosX;
-                    }
+                    _startPosX -= (int)EntityUsta.Step;
                     break;
-                //вверх
                 case DirectionType.Up:
-                    if (_startPosY - EntityUsta.Step > 5)
-                    {
-                        _startPosY -= (int)EntityUsta.Step;
-                    }
-                    else if (_startPosY + 7 - EntityUsta.Step < 0)
-                    {
-                        _startPosY = _startPosY - _startPosY + 10;
-                    }
+                    _startPosY -= (int)EntityUsta.Step;
                     break;
-                // вправо
                 case DirectionType.Right:
-                    if (_startPosX + EntityUsta.Step + _ustaWidth < _pictureWidth)
-                    {
-                        _startPosX += (int)EntityUsta.Step;
-                    }
-                    else if (_startPosX + EntityUsta.Step + _ustaWidth > _pictureWidth)
-                    {
-                        _startPosX += _pictureWidth - _startPosX - _ustaWidth;
-                    }
-
+                    _startPosX += (int)EntityUsta.Step;
                     break;
-                //вниз
                 case DirectionType.Down:
-                    if (_startPosY + EntityUsta.Step + _ustaHeight < _pictureHeight)
-                    {
-                        _startPosY += (int)EntityUsta.Step;
-                    }
-                    else if (_startPosY + EntityUsta.Step + _ustaHeight > _pictureHeight)
-                    {
-                        _startPosY += _pictureHeight - _startPosY - _ustaHeight;
-                    }
+                    _startPosY += (int)EntityUsta.Step;
                     break;
             }
         }
-        /// <summary>
-        /// Прорисовка объекта
-        /// </summary>
-        /// <param name="g"></param>
-        public void DrawTransport(Graphics g)
+
+        public virtual void DrawTransport(Graphics g)
         {
             if (EntityUsta == null)
             {
@@ -128,11 +197,11 @@ namespace SelfPropelledArtilleryUnit
             }
             Pen pen = new(Color.Black);
 
-            Brush additionalBrush = new SolidBrush(EntityUsta.AdditionalColor);
+            
             Brush BodyColor = new SolidBrush(EntityUsta.BodyColor);
 
             //зеленый темнее
-            lineWidth = 10;
+            int lineWidth = 10;
             Color color1 = Color.FromArgb(65, 72, 51);
             Brush pen1 = new SolidBrush(color1);
 
@@ -148,7 +217,7 @@ namespace SelfPropelledArtilleryUnit
 
 
             //прорисовка арт. установки
-    
+
             int cornerRadius = 16; // Радиус скругления углов
             int cornerRadius1 = 12;
 
@@ -182,126 +251,7 @@ namespace SelfPropelledArtilleryUnit
 
             g.FillEllipse(pen3, _startPosX + 10, _startPosY + 52, 26, 26);
             g.FillEllipse(pen3, _startPosX + 105, _startPosY + 52, 26, 26);
-
-            
-
-
-            // батарея
-            if (EntityUsta.BodyKit)
-            {
-
-                GraphicsPath path1 = new GraphicsPath();
-                path1.AddLine(_startPosX + 15, _startPosY + 40, _startPosX + 15, _startPosY + 30);
-                path1.AddLine(_startPosX + 15, _startPosY + 30, _startPosX + 15, _startPosY + 35);
-                path1.AddLine(_startPosX + 15, _startPosY + 35, _startPosX + 25, _startPosY + 35);
-                path1.AddLine(_startPosX + 25, _startPosY + 35, _startPosX + 30, _startPosY + 30);
-                path1.AddLine(_startPosX + 30, _startPosY + 30, _startPosX + 35, _startPosY + 40);
-                path1.CloseFigure();
-
-                g.DrawPath(pen, path1);
-
-                g.FillPath(BodyColor, path1);
-
-
-
-                GraphicsPath path2 = new GraphicsPath();
-                path2.AddLine(_startPosX + 15, _startPosY + 30, _startPosX + 40, _startPosY + 20);
-                path2.AddLine(_startPosX + 40, _startPosY + 20, _startPosX + 40, _startPosY + 25);
-                path2.AddLine(_startPosX + 40, _startPosY + 25, _startPosX + 25, _startPosY + 35);
-                path2.AddLine(_startPosX + 25, _startPosY + 35, _startPosX + 15, _startPosY + 35);
-
-                path2.CloseFigure();
-
-                g.DrawPath(pen, path2);
-
-                g.FillPath(additionalBrush, path2);
-
-
-
-                GraphicsPath path3 = new GraphicsPath();
-                path3.AddLine(_startPosX + 10, _startPosY + 32, _startPosX, _startPosY + 10);
-                path3.AddLine(_startPosX, _startPosY + 10, _startPosX + 40, _startPosY - 7);
-                path3.AddLine(_startPosX + 40, _startPosY - 7, _startPosX + 50, _startPosY + 16);
-
-                path3.CloseFigure();
-
-                g.DrawPath(pen, path3);
-
-                g.FillPath(pen3, path3);
-
-
-
-                GraphicsPath path4 = new GraphicsPath();
-                path4.AddLine(_startPosX, _startPosY + 10, _startPosX + 40, _startPosY - 7);
-                path4.AddLine(_startPosX + 40, _startPosY - 7, _startPosX + 43, _startPosY - 5);
-                path4.AddLine(_startPosX + 43, _startPosY - 5, _startPosX + 41, _startPosY - 3);
-                path4.AddLine(_startPosX + 41, _startPosY - 3, _startPosX + 2, _startPosY + 13);
-
-                path4.CloseFigure();
-
-                g.DrawPath(pen, path4);
-
-                g.FillPath(additionalBrush, path4);
-
-
-                GraphicsPath path5 = new GraphicsPath();
-                path5.AddLine(_startPosX + 3, _startPosY + 15, _startPosX + 45, _startPosY - 2);
-                path5.AddLine(_startPosX + 46, _startPosY - 2, _startPosX + 49, _startPosY - 1);
-                path5.AddLine(_startPosX + 49, _startPosY - 1, _startPosX + 46, _startPosY + 3);
-                path5.AddLine(_startPosX + 46, _startPosY + 3, _startPosX + 6, _startPosY + 20);
-                    
-                path5.CloseFigure();
-
-                g.DrawPath(pen, path5);
-
-                g.FillPath(BodyColor, path5);
-
-
-
-                GraphicsPath path6 = new GraphicsPath();
-                path6.AddLine(_startPosX + 5, _startPosY + 22, _startPosX + 47, _startPosY + 5);
-                path6.AddLine(_startPosX + 47, _startPosY + 5, _startPosX + 51, _startPosY + 5);
-                path6.AddLine(_startPosX + 51, _startPosY + 5, _startPosX + 53, _startPosY + 7);
-                path6.AddLine(_startPosX + 53, _startPosY + 7, _startPosX + 8, _startPosY + 25);
-
-                path6.CloseFigure();
-
-                g.DrawPath(pen, path6);
-
-                g.FillPath(additionalBrush, path6);
-
-
-                GraphicsPath path7 = new GraphicsPath();
-                path7.AddLine(_startPosX + 7, _startPosY + 27, _startPosX + 46, _startPosY + 11);
-                path7.AddLine(_startPosX + 46, _startPosY + 11, _startPosX + 51, _startPosY + 9);
-                path7.AddLine(_startPosX + 51, _startPosY + 9, _startPosX + 56, _startPosY + 11);
-                path7.AddLine(_startPosX + 56, _startPosY + 11, _startPosX + 10, _startPosY + 31);
-
-                path7.CloseFigure();
-
-                g.DrawPath(pen, path7);
-
-                g.FillPath(BodyColor, path7);
-
-
-
-            }
-            // пушка
-            if (EntityUsta.Pushka)
-            {
-                g.FillRectangle(pen2, _startPosX + 80, _startPosY + 25, 10, 10);
-                g.DrawRectangle(pen, _startPosX + 80, _startPosY + 25, 10, 10);
-
-                g.FillRectangle(additionalBrush, _startPosX + 90, _startPosY + 28, 40, 5);
-                g.DrawRectangle(pen, _startPosX + 90, _startPosY + 28, 40, 5);
-
-                g.FillRectangle(additionalBrush, _startPosX + 130, _startPosY + 27, 5, 7);
-                g.DrawRectangle(pen, _startPosX + 130, _startPosY + 27, 5, 7);
-            }
-            
-
-            
         }
     }
-
 }
+

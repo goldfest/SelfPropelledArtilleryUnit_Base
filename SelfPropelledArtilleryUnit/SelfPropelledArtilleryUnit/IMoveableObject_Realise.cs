@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using SelfPropelledArtilleryUnit.DrawningObjects;
+using SelfPropelledArtilleryUnit.Drawnings;
+
+namespace SelfPropelledArtilleryUnit.MovementStrategy
+{
+    /// <summary>
+    /// Реализация интерфейса IDrawningObject для работы с объектом DrawningUsta (паттерн Adapter)
+/// </summary>
+    public class DrawningObjectUsta : IMoveableObject
+    {
+        private readonly DrawningUsta? _drawningUsta = null;
+        public DrawningObjectUsta(DrawningUsta drawningUsta)
+        {
+            _drawningUsta = drawningUsta;
+        }
+        public ObjectParameters? GetObjectPosition
+        {
+            get
+            {
+                if (_drawningUsta == null || _drawningUsta.EntityUsta ==
+                null)
+                {
+                    return null;
+                }
+                return new ObjectParameters(_drawningUsta.GetPosX,
+                _drawningUsta.GetPosY, _drawningUsta.GetWidth, _drawningUsta.GetHeight);
+            }
+        }
+        public int GetStep => (int)(_drawningUsta?.EntityUsta?.Step ?? 0);
+        public bool CheckCanMove(DirectionType direction) =>
+        _drawningUsta?.CanMove(direction) ?? false;
+        public void MoveObject(DirectionType direction) =>
+        _drawningUsta?.MoveTransport(direction);
+    }
+}

@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SelfPropelledArtilleryUnit
+namespace SelfPropelledArtilleryUnit.Drawnings
 {
+    /// <summary>
+    /// Направление перемещения
+    /// </summary>
     public enum DirectionType
     {
 
@@ -17,5 +20,4 @@ namespace SelfPropelledArtilleryUnit
 
         Right = 4
     }
-
 }
