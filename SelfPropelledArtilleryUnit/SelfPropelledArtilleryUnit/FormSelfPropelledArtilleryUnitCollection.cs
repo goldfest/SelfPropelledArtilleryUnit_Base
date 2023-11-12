@@ -131,7 +131,7 @@ namespace SelfPropelledArtilleryUnit
             formSelfPropelledArtilleryUnitConfig.Show();
         }
 
-        
+
         /// <summary>
         /// Удаление объекта из набора
         /// </summary>
@@ -185,6 +185,50 @@ namespace SelfPropelledArtilleryUnit
             }
             pictureBoxCollection.Image = obj.ShowUsta();
         }
+
+        /// <summary>
+        /// Обработка нажатия "Сохранение"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (_storage.SaveData(saveFileDialog.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно",
+                    "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не сохранилось", "Результат",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        /// <summary>
+        /// Обработка нажатия "Загрузка"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (_storage.LoadData(openFileDialog.FileName))
+                {
+                    MessageBox.Show("Данные успешно загружены.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ReloadObjects();
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при загрузке данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
     }
 }
 

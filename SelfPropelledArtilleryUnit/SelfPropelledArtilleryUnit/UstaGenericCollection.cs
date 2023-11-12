@@ -14,6 +14,11 @@ namespace SelfPropelledArtilleryUnit.Generics
     where U : IMoveableObject
     {
         /// <summary>
+        /// Получение объектов коллекции
+        /// </summary>
+        public IEnumerable<T?> GetUsta => _collection.GetUsta();
+
+        /// <summary>
         /// Ширина окна прорисовки
         /// </summary>
         private readonly int _pictureWidth;

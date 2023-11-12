@@ -39,14 +39,21 @@
             ButtonDelObject = new Button();
             ButtonAddObject = new Button();
             textBoxStorageName = new TextBox();
+            menuStrip = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            SaveToolStripMenuItem = new ToolStripMenuItem();
+            LoadToolStripMenuItem = new ToolStripMenuItem();
+            openFileDialog = new OpenFileDialog();
+            saveFileDialog = new SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCollection).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            menuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // ButtonAddUsta
             // 
-            ButtonAddUsta.Location = new Point(26, 314);
+            ButtonAddUsta.Location = new Point(26, 366);
             ButtonAddUsta.Name = "ButtonAddUsta";
             ButtonAddUsta.Size = new Size(166, 40);
             ButtonAddUsta.TabIndex = 0;
@@ -56,7 +63,7 @@
             // 
             // ButtonRemoveUsta
             // 
-            ButtonRemoveUsta.Location = new Point(26, 400);
+            ButtonRemoveUsta.Location = new Point(26, 457);
             ButtonRemoveUsta.Name = "ButtonRemoveUsta";
             ButtonRemoveUsta.Size = new Size(166, 39);
             ButtonRemoveUsta.TabIndex = 1;
@@ -66,7 +73,7 @@
             // 
             // ButtonRefreshCollection
             // 
-            ButtonRefreshCollection.Location = new Point(26, 478);
+            ButtonRefreshCollection.Location = new Point(26, 502);
             ButtonRefreshCollection.Name = "ButtonRefreshCollection";
             ButtonRefreshCollection.Size = new Size(166, 40);
             ButtonRefreshCollection.TabIndex = 2;
@@ -86,7 +93,7 @@
             // maskedTextBoxNumber
             // 
             maskedTextBoxNumber.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            maskedTextBoxNumber.Location = new Point(56, 371);
+            maskedTextBoxNumber.Location = new Point(58, 429);
             maskedTextBoxNumber.Mask = "00";
             maskedTextBoxNumber.Name = "maskedTextBoxNumber";
             maskedTextBoxNumber.Size = new Size(100, 22);
@@ -100,9 +107,10 @@
             groupBox1.Controls.Add(ButtonRefreshCollection);
             groupBox1.Controls.Add(maskedTextBoxNumber);
             groupBox1.Controls.Add(ButtonRemoveUsta);
+            groupBox1.Controls.Add(menuStrip);
             groupBox1.Location = new Point(643, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(209, 533);
+            groupBox1.Size = new Size(209, 560);
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Инструменты";
@@ -113,7 +121,7 @@
             groupBox2.Controls.Add(ButtonDelObject);
             groupBox2.Controls.Add(ButtonAddObject);
             groupBox2.Controls.Add(textBoxStorageName);
-            groupBox2.Location = new Point(6, 22);
+            groupBox2.Location = new Point(6, 64);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(197, 274);
             groupBox2.TabIndex = 6;
@@ -157,6 +165,47 @@
             textBoxStorageName.Size = new Size(158, 23);
             textBoxStorageName.TabIndex = 0;
             // 
+            // menuStrip
+            // 
+            menuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip.Location = new Point(3, 19);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Size = new Size(203, 24);
+            menuStrip.TabIndex = 7;
+            menuStrip.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SaveToolStripMenuItem, LoadToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(48, 20);
+            fileToolStripMenuItem.Text = "Файл";
+            // 
+            // SaveToolStripMenuItem
+            // 
+            SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            SaveToolStripMenuItem.Size = new Size(180, 22);
+            SaveToolStripMenuItem.Text = "Сохранение";
+            SaveToolStripMenuItem.Click += SaveToolStripMenuItem_Click;
+            // 
+            // LoadToolStripMenuItem
+            // 
+            LoadToolStripMenuItem.Name = "LoadToolStripMenuItem";
+            LoadToolStripMenuItem.Size = new Size(180, 22);
+            LoadToolStripMenuItem.Text = "Загрузка";
+            LoadToolStripMenuItem.Click += LoadToolStripMenuItem_Click;
+            // 
+            // openFileDialog
+            // 
+            openFileDialog.FileName = "openFileDialog1";
+            openFileDialog.Filter = "txt file | *.txt";
+            openFileDialog.Title = "Сохранить текстовый файл";
+            // 
+            // saveFileDialog
+            // 
+            saveFileDialog.Filter = "txt file | *.txt";
+            saveFileDialog.Title = "Выберите текстовый файл";
+            // 
             // FormSelfPropelledArtilleryUnitCollection
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -164,6 +213,7 @@
             ClientSize = new Size(867, 584);
             Controls.Add(groupBox1);
             Controls.Add(pictureBoxCollection);
+            MainMenuStrip = menuStrip;
             Name = "FormSelfPropelledArtilleryUnitCollection";
             Text = "Набор арт. установок";
             ((System.ComponentModel.ISupportInitialize)pictureBoxCollection).EndInit();
@@ -171,6 +221,8 @@
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            menuStrip.ResumeLayout(false);
+            menuStrip.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -187,5 +239,11 @@
         private ListBox listBoxStorage;
         private Button ButtonDelObject;
         private Button ButtonAddObject;
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem SaveToolStripMenuItem;
+        private ToolStripMenuItem LoadToolStripMenuItem;
+        private OpenFileDialog openFileDialog;
+        private SaveFileDialog saveFileDialog;
     }
 }
