@@ -71,11 +71,9 @@
             groupBox1.Controls.Add(numericUpDownSpeed);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(14, 16);
-            groupBox1.Margin = new Padding(3, 4, 3, 4);
+            groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 4, 3, 4);
-            groupBox1.Size = new Size(519, 304);
+            groupBox1.Size = new Size(454, 228);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Параметры";
@@ -83,9 +81,9 @@
             // labelModifiedObject
             // 
             labelModifiedObject.BorderStyle = BorderStyle.FixedSingle;
-            labelModifiedObject.Location = new Point(358, 195);
+            labelModifiedObject.Location = new Point(313, 146);
             labelModifiedObject.Name = "labelModifiedObject";
-            labelModifiedObject.Size = new Size(99, 35);
+            labelModifiedObject.Size = new Size(87, 27);
             labelModifiedObject.TabIndex = 8;
             labelModifiedObject.Text = "Продвинутый";
             labelModifiedObject.TextAlign = ContentAlignment.MiddleCenter;
@@ -94,9 +92,9 @@
             // labelSimpleObject
             // 
             labelSimpleObject.BorderStyle = BorderStyle.FixedSingle;
-            labelSimpleObject.Location = new Point(246, 195);
+            labelSimpleObject.Location = new Point(215, 146);
             labelSimpleObject.Name = "labelSimpleObject";
-            labelSimpleObject.Size = new Size(99, 35);
+            labelSimpleObject.Size = new Size(87, 27);
             labelSimpleObject.TabIndex = 7;
             labelSimpleObject.Text = "Простой";
             labelSimpleObject.TextAlign = ContentAlignment.MiddleCenter;
@@ -112,102 +110,91 @@
             groupBox2.Controls.Add(panelGreen);
             groupBox2.Controls.Add(panelWhite);
             groupBox2.Controls.Add(panelRed);
-            groupBox2.Location = new Point(246, 43);
-            groupBox2.Margin = new Padding(3, 4, 3, 4);
+            groupBox2.Location = new Point(215, 32);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(3, 4, 3, 4);
-            groupBox2.Size = new Size(211, 141);
+            groupBox2.Size = new Size(185, 106);
             groupBox2.TabIndex = 6;
             groupBox2.TabStop = false;
             groupBox2.Text = "Цвета";
             // 
             // panelPurple
             // 
-            panelPurple.BackColor = Color.FromArgb(192, 0, 192);
-            panelPurple.Location = new Point(159, 84);
-            panelPurple.Margin = new Padding(3, 4, 3, 4);
+            panelPurple.BackColor = Color.Purple;
+            panelPurple.Location = new Point(139, 63);
             panelPurple.Name = "panelPurple";
-            panelPurple.Size = new Size(40, 40);
+            panelPurple.Size = new Size(35, 30);
             panelPurple.TabIndex = 7;
             panelPurple.MouseDown += panelColor_MouseDown;
             // 
             // panelYellow
             // 
             panelYellow.BackColor = Color.Yellow;
-            panelYellow.Location = new Point(159, 29);
-            panelYellow.Margin = new Padding(3, 4, 3, 4);
+            panelYellow.Location = new Point(139, 22);
             panelYellow.Name = "panelYellow";
-            panelYellow.Size = new Size(40, 40);
+            panelYellow.Size = new Size(35, 30);
             panelYellow.TabIndex = 3;
             panelYellow.MouseDown += panelColor_MouseDown;
             // 
             // panelBlack
             // 
             panelBlack.BackColor = Color.Black;
-            panelBlack.Location = new Point(112, 84);
-            panelBlack.Margin = new Padding(3, 4, 3, 4);
+            panelBlack.Location = new Point(98, 63);
             panelBlack.Name = "panelBlack";
-            panelBlack.Size = new Size(40, 40);
+            panelBlack.Size = new Size(35, 30);
             panelBlack.TabIndex = 6;
             panelBlack.MouseDown += panelColor_MouseDown;
             // 
             // panelBlue
             // 
             panelBlue.BackColor = Color.Blue;
-            panelBlue.Location = new Point(112, 29);
-            panelBlue.Margin = new Padding(3, 4, 3, 4);
+            panelBlue.Location = new Point(98, 22);
             panelBlue.Name = "panelBlue";
-            panelBlue.Size = new Size(40, 40);
+            panelBlue.Size = new Size(35, 30);
             panelBlue.TabIndex = 2;
             panelBlue.MouseDown += panelColor_MouseDown;
             // 
             // panelGray
             // 
             panelGray.BackColor = Color.Gray;
-            panelGray.Location = new Point(65, 84);
-            panelGray.Margin = new Padding(3, 4, 3, 4);
+            panelGray.Location = new Point(57, 63);
             panelGray.Name = "panelGray";
-            panelGray.Size = new Size(40, 40);
+            panelGray.Size = new Size(35, 30);
             panelGray.TabIndex = 5;
             panelGray.MouseDown += panelColor_MouseDown;
             // 
             // panelGreen
             // 
-            panelGreen.BackColor = Color.FromArgb(0, 192, 0);
-            panelGreen.Location = new Point(65, 29);
-            panelGreen.Margin = new Padding(3, 4, 3, 4);
+            panelGreen.BackColor = Color.Green;
+            panelGreen.Location = new Point(57, 22);
             panelGreen.Name = "panelGreen";
-            panelGreen.Size = new Size(40, 40);
+            panelGreen.Size = new Size(35, 30);
             panelGreen.TabIndex = 1;
             panelGreen.MouseDown += panelColor_MouseDown;
             // 
             // panelWhite
             // 
             panelWhite.BackColor = Color.White;
-            panelWhite.Location = new Point(18, 84);
-            panelWhite.Margin = new Padding(3, 4, 3, 4);
+            panelWhite.Location = new Point(16, 63);
             panelWhite.Name = "panelWhite";
-            panelWhite.Size = new Size(40, 40);
+            panelWhite.Size = new Size(35, 30);
             panelWhite.TabIndex = 4;
             panelWhite.MouseDown += panelColor_MouseDown;
             // 
             // panelRed
             // 
             panelRed.BackColor = Color.Red;
-            panelRed.Location = new Point(18, 29);
-            panelRed.Margin = new Padding(3, 4, 3, 4);
+            panelRed.Location = new Point(16, 22);
             panelRed.Name = "panelRed";
-            panelRed.Size = new Size(40, 40);
+            panelRed.Size = new Size(35, 30);
             panelRed.TabIndex = 0;
             panelRed.MouseDown += panelColor_MouseDown;
             // 
             // checkBoxBodyKit
             // 
             checkBoxBodyKit.AutoSize = true;
-            checkBoxBodyKit.Location = new Point(11, 205);
-            checkBoxBodyKit.Margin = new Padding(3, 4, 3, 4);
+            checkBoxBodyKit.Location = new Point(10, 154);
             checkBoxBodyKit.Name = "checkBoxBodyKit";
-            checkBoxBodyKit.Size = new Size(215, 24);
+            checkBoxBodyKit.Size = new Size(170, 19);
             checkBoxBodyKit.TabIndex = 5;
             checkBoxBodyKit.Text = "Признак наличия батареи";
             checkBoxBodyKit.UseVisualStyleBackColor = true;
@@ -215,47 +202,44 @@
             // checkBoxPushka
             // 
             checkBoxPushka.AutoSize = true;
-            checkBoxPushka.Location = new Point(11, 159);
-            checkBoxPushka.Margin = new Padding(3, 4, 3, 4);
+            checkBoxPushka.Location = new Point(10, 119);
             checkBoxPushka.Name = "checkBoxPushka";
-            checkBoxPushka.Size = new Size(202, 24);
+            checkBoxPushka.Size = new Size(163, 19);
             checkBoxPushka.TabIndex = 4;
             checkBoxPushka.Text = "Признак наличия пушки";
             checkBoxPushka.UseVisualStyleBackColor = true;
             // 
             // numericUpDownWeight
             // 
-            numericUpDownWeight.Location = new Point(87, 80);
-            numericUpDownWeight.Margin = new Padding(3, 4, 3, 4);
+            numericUpDownWeight.Location = new Point(76, 60);
             numericUpDownWeight.Name = "numericUpDownWeight";
-            numericUpDownWeight.Size = new Size(83, 27);
+            numericUpDownWeight.Size = new Size(73, 23);
             numericUpDownWeight.TabIndex = 3;
             numericUpDownWeight.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
             // numericUpDownSpeed
             // 
-            numericUpDownSpeed.Location = new Point(87, 41);
-            numericUpDownSpeed.Margin = new Padding(3, 4, 3, 4);
+            numericUpDownSpeed.Location = new Point(76, 31);
             numericUpDownSpeed.Name = "numericUpDownSpeed";
-            numericUpDownSpeed.Size = new Size(83, 27);
+            numericUpDownSpeed.Size = new Size(73, 23);
             numericUpDownSpeed.TabIndex = 2;
             numericUpDownSpeed.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(11, 83);
+            label2.Location = new Point(10, 62);
             label2.Name = "label2";
-            label2.Size = new Size(36, 20);
+            label2.Size = new Size(29, 15);
             label2.TabIndex = 1;
             label2.Text = "Вес:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(11, 44);
+            label1.Location = new Point(10, 33);
             label1.Name = "label1";
-            label1.Size = new Size(76, 20);
+            label1.Size = new Size(62, 15);
             label1.TabIndex = 0;
             label1.Text = "Скорость:";
             // 
@@ -265,10 +249,9 @@
             panelColor.Controls.Add(labelDopColor);
             panelColor.Controls.Add(labelBaseColor);
             panelColor.Controls.Add(pictureBoxObject);
-            panelColor.Location = new Point(539, 16);
-            panelColor.Margin = new Padding(3, 4, 3, 4);
+            panelColor.Location = new Point(472, 12);
             panelColor.Name = "panelColor";
-            panelColor.Size = new Size(315, 245);
+            panelColor.Size = new Size(276, 184);
             panelColor.TabIndex = 1;
             panelColor.DragDrop += PanelObject_DragDrop;
             panelColor.DragEnter += PanelObject_DragEnter;
@@ -277,9 +260,9 @@
             // 
             labelDopColor.AllowDrop = true;
             labelDopColor.BorderStyle = BorderStyle.FixedSingle;
-            labelDopColor.Location = new Point(187, 13);
+            labelDopColor.Location = new Point(164, 10);
             labelDopColor.Name = "labelDopColor";
-            labelDopColor.Size = new Size(114, 38);
+            labelDopColor.Size = new Size(100, 29);
             labelDopColor.TabIndex = 2;
             labelDopColor.Text = "Доп. цвет";
             labelDopColor.TextAlign = ContentAlignment.MiddleCenter;
@@ -291,9 +274,9 @@
             // 
             labelBaseColor.AllowDrop = true;
             labelBaseColor.BorderStyle = BorderStyle.FixedSingle;
-            labelBaseColor.Location = new Point(14, 13);
+            labelBaseColor.Location = new Point(12, 10);
             labelBaseColor.Name = "labelBaseColor";
-            labelBaseColor.Size = new Size(114, 38);
+            labelBaseColor.Size = new Size(100, 29);
             labelBaseColor.TabIndex = 2;
             labelBaseColor.Text = "Цвет";
             labelBaseColor.TextAlign = ContentAlignment.MiddleCenter;
@@ -303,19 +286,17 @@
             // 
             // pictureBoxObject
             // 
-            pictureBoxObject.Location = new Point(14, 61);
-            pictureBoxObject.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxObject.Location = new Point(12, 46);
             pictureBoxObject.Name = "pictureBoxObject";
-            pictureBoxObject.Size = new Size(288, 169);
+            pictureBoxObject.Size = new Size(252, 127);
             pictureBoxObject.TabIndex = 0;
             pictureBoxObject.TabStop = false;
             // 
             // ButtonOk
             // 
-            ButtonOk.Location = new Point(553, 277);
-            ButtonOk.Margin = new Padding(3, 4, 3, 4);
+            ButtonOk.Location = new Point(484, 208);
             ButtonOk.Name = "ButtonOk";
-            ButtonOk.Size = new Size(114, 43);
+            ButtonOk.Size = new Size(100, 32);
             ButtonOk.TabIndex = 2;
             ButtonOk.Text = "Добавить";
             ButtonOk.UseVisualStyleBackColor = true;
@@ -323,24 +304,22 @@
             // 
             // buttonCancel
             // 
-            buttonCancel.Location = new Point(727, 277);
-            buttonCancel.Margin = new Padding(3, 4, 3, 4);
+            buttonCancel.Location = new Point(636, 208);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(114, 43);
+            buttonCancel.Size = new Size(100, 32);
             buttonCancel.TabIndex = 3;
             buttonCancel.Text = "Отмена";
             buttonCancel.UseVisualStyleBackColor = true;
             // 
             // FormSelfPropelledArtilleryUnitConfig
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 336);
+            ClientSize = new Size(800, 252);
             Controls.Add(buttonCancel);
             Controls.Add(ButtonOk);
             Controls.Add(panelColor);
             Controls.Add(groupBox1);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "FormSelfPropelledArtilleryUnitConfig";
             Text = "FormSelfPropelledArtilleryUnitConfig";
             groupBox1.ResumeLayout(false);

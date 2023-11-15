@@ -24,9 +24,6 @@ namespace SelfPropelledArtilleryUnit.MovementStrategy
                 objParams.DownBorder + GetStep() >= FieldHeight;
         }
 
-
-
-
         protected override void MoveToTarget()
         {
             var objParams = GetObjectParameters;
@@ -45,9 +42,6 @@ namespace SelfPropelledArtilleryUnit.MovementStrategy
                 MoveDown();
             }
         }
-
-
-
     }
 }
 

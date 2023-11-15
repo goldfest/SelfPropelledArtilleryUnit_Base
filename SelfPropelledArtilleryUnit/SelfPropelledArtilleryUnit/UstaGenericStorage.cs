@@ -92,7 +92,7 @@ namespace SelfPropelledArtilleryUnit.Generics
                     return _ustaStorages[ind];
                 }
                 return null;
-                
+
             }
         }
         /// <summary>
@@ -107,8 +107,7 @@ namespace SelfPropelledArtilleryUnit.Generics
                 File.Delete(filename);
             }
             StringBuilder data = new();
-            foreach (KeyValuePair<string,
-            UstaGenericCollection<DrawningUsta, DrawningObjectUsta>> record in _ustaStorages)
+            foreach (KeyValuePair<string, UstaGenericCollection<DrawningUsta, DrawningObjectUsta>> record in _ustaStorages)
             {
                 StringBuilder records = new();
                 foreach (DrawningUsta? elem in record.Value.GetUsta)
@@ -121,10 +120,12 @@ namespace SelfPropelledArtilleryUnit.Generics
             {
                 return false;
             }
-            using FileStream fs = new(filename, FileMode.Create);
-            byte[] info = new
-            UTF8Encoding(true).GetBytes($"UstaStorage{Environment.NewLine}{data}");
-            fs.Write(info, 0, info.Length);
+
+            using (StreamWriter writer = new StreamWriter(filename))
+            {
+                writer.Write($"UstaStorage{Environment.NewLine}{data}");
+            }
+
             return true;
         }
 
@@ -139,56 +140,51 @@ namespace SelfPropelledArtilleryUnit.Generics
             {
                 return false;
             }
-            string bufferTextFromFile = "";
-            using (FileStream fs = new(filename, FileMode.Open))
+
+            using (StreamReader reader = new StreamReader(filename))
             {
-                byte[] b = new byte[fs.Length];
-                UTF8Encoding temp = new(true);
-                while (fs.Read(b, 0, b.Length) > 0)
+                string cheker = reader.ReadLine();
+                if (cheker == null)
                 {
-                    bufferTextFromFile += temp.GetString(b);
+                    return false;
                 }
-            }
-            var strs = bufferTextFromFile.Split(new char[] { '\n', '\r' },
-            StringSplitOptions.RemoveEmptyEntries);
-            if (strs == null || strs.Length == 0)
-            {
-                return false;
-            }
-            if (!strs[0].StartsWith("UstaStorage"))
-            {
-                //если нет такой записи, то это не те данные
-                return false;
-            }
-            _ustaStorages.Clear();
-            foreach (string data in strs)
-            {
-                string[] record = data.Split(_separatorForKeyValue,
-                StringSplitOptions.RemoveEmptyEntries);
-                if (record.Length != 2)
+                if (!cheker.StartsWith("UstaStorage"))
                 {
-                    continue;
+                    return false;
                 }
-                UstaGenericCollection<DrawningUsta, DrawningObjectUsta>
-                collection = new(_pictureWidth, _pictureHeight);
-                string[] set = record[1].Split(_separatorRecords,
-                StringSplitOptions.RemoveEmptyEntries);
-                foreach (string elem in set)
+                _ustaStorages.Clear();
+                string strs;
+                bool firstinit = true;
+                while ((strs = reader.ReadLine()) != null)
                 {
-                    DrawningUsta? usta =
-                    elem?.CreateDrawningUsta(_separatorForObject, _pictureWidth, _pictureHeight);
-                    if (usta != null)
+                    if (strs == null && firstinit)
                     {
-                        int? result = collection + usta;
-                        if (result == null || result.Value == -1)
+                        return false;
+                    }
+                    if (strs == null)
+                    {
+                        return false;
+                    }
+                    firstinit = false;
+                    string name = strs.Split(_separatorForKeyValue)[0];
+                    UstaGenericCollection<DrawningUsta, DrawningObjectUsta> collection = new(_pictureWidth, _pictureHeight);
+                    foreach (string data in strs.Split(_separatorForKeyValue)[1].Split(_separatorRecords))
+                    {
+                        DrawningUsta? usta =
+                        data?.CreateDrawningUsta(_separatorForObject, _pictureWidth, _pictureHeight);
+                        if (usta != null)
                         {
-                            return false;
+                            int? result = collection + usta;
+                            if (result == null || result.Value == -1)
+                            {
+                                return false;
+                            }
                         }
                     }
+                    _ustaStorages.Add(name, collection);
                 }
-                _ustaStorages.Add(record[0], collection);
+                return true;
             }
-            return true;
         }
     }
 }
