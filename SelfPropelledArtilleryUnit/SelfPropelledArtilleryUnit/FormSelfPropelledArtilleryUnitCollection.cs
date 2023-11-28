@@ -3,6 +3,7 @@ using SelfPropelledArtilleryUnit.DrawningObjects;
 using SelfPropelledArtilleryUnit.Drawnings;
 using SelfPropelledArtilleryUnit.Generics;
 using SelfPropelledArtilleryUnit.MovementStrategy;
+using Microsoft.Extensions.Logging;
 
 
 
@@ -18,9 +19,13 @@ namespace SelfPropelledArtilleryUnit
         /// </summary>
         private readonly UstaGenericStorage _storage;
         /// <summary>
+        /// Логер
+        /// </summary>
+        private readonly ILogger _logger;
+        /// <summary>
         /// Конструктор
         /// </summary>
-        public FormSelfPropelledArtilleryUnitCollection()
+        public FormSelfPropelledArtilleryUnitCollection(ILogger<FormSelfPropelledArtilleryUnitCollection> logger)
         {
             InitializeComponent();
             _storage = new UstaGenericStorage(pictureBoxCollection.Width,
@@ -59,10 +64,13 @@ namespace SelfPropelledArtilleryUnit
             {
                 MessageBox.Show("Не все данные заполнены", "Ошибка",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _logger.LogWarning("Пустое название набора");
                 return;
             }
             _storage.AddSet(textBoxStorageName.Text);
             ReloadObjects();
+            _logger.LogInformation($"Добавлен набор:{ textBoxStorageName.Text}");
+
         }
         /// <summary>
         /// Выбор набора
@@ -84,14 +92,18 @@ namespace SelfPropelledArtilleryUnit
         {
             if (listBoxStorage.SelectedIndex == -1)
             {
+                _logger.LogWarning("Удаление невыбранного набора");
                 return;
             }
+            string name = listBoxStorage.SelectedItem.ToString() ?? string.Empty;
             if (MessageBox.Show($"Удалить объект {listBoxStorage.SelectedItem}?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 
             {
                 _storage.DelSet(listBoxStorage.SelectedItem.ToString()
                 ?? string.Empty);
                 ReloadObjects();
+                _logger.LogInformation($"Удален набор: {name}");
+
             }
         }
         /// <summary>
@@ -110,21 +122,24 @@ namespace SelfPropelledArtilleryUnit
 
             formSelfPropelledArtilleryUnitConfig.AddEvent(usta =>
             {
-                if (listBoxStorage.SelectedIndex != -1)
+                var obj = _storage[listBoxStorage.SelectedItem.ToString() ?? string.Empty];
+                if (obj == null)
                 {
-                    var obj = _storage[listBoxStorage.SelectedItem?.ToString() ?? string.Empty];
-                    if (obj != null)
-                    {
-                        if (obj + usta != 1)
-                        {
-                            MessageBox.Show("Объект добавлен");
-                            pictureBoxCollection.Image = obj.ShowUsta();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Не удалось добавить объект");
-                        }
-                    }
+                    _logger.LogWarning("Добавление пустого объекта");
+                    return;
+                }
+                try
+                {
+                    _ = obj + usta;
+
+                    MessageBox.Show("Объект добавлен");
+                    pictureBoxCollection.Image = obj.ShowUsta();
+                    _logger.LogInformation($"Добавлен объект в набор {listBoxStorage.SelectedItem.ToString()}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Не удалось добавить объект");
+                    _logger.LogWarning($"{ex.Message} в наборе {listBoxStorage.SelectedItem.ToString()}");
                 }
             });
 
@@ -141,6 +156,7 @@ namespace SelfPropelledArtilleryUnit
         {
             if (listBoxStorage.SelectedIndex == -1)
             {
+                _logger.LogWarning("Удаление объекта из несуществующего набора");
                 return;
             }
             var obj = _storage[listBoxStorage.SelectedItem.ToString() ??
@@ -159,10 +175,13 @@ namespace SelfPropelledArtilleryUnit
             {
                 MessageBox.Show("Объект удален");
                 pictureBoxCollection.Image = obj.ShowUsta();
+                _logger.LogInformation($"Удален объект из набора {listBoxStorage.SelectedItem.ToString()}");
             }
             else
             {
                 MessageBox.Show("Не удалось удалить объект");
+                _logger.LogWarning($"Не удалось удалить объект из набора {listBoxStorage.SelectedItem.ToString()}");
+
             }
         }
         /// <summary>
@@ -195,15 +214,16 @@ namespace SelfPropelledArtilleryUnit
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (_storage.SaveData(saveFileDialog.FileName))
+                try
                 {
-                    MessageBox.Show("Сохранение прошло успешно",
-                    "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _storage.SaveData(saveFileDialog.FileName);
+                    MessageBox.Show("Сохранение прошло успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _logger.LogInformation($"Сохранение наборов в файл {saveFileDialog.FileName}");
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Не сохранилось: {ex.Message}", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    _logger.LogWarning($"Не удалось сохранить наборы с ошибкой: {ex.Message}");
                 }
             }
         }
@@ -216,14 +236,17 @@ namespace SelfPropelledArtilleryUnit
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (_storage.LoadData(openFileDialog.FileName))
+                try
                 {
-                    MessageBox.Show("Данные успешно загружены.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _storage.LoadData(openFileDialog.FileName);
                     ReloadObjects();
+                    MessageBox.Show("Загрузка прошла успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _logger.LogInformation($"Загрузились наборы из файла {openFileDialog.FileName}");
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка при загрузке данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Не загрузилось: {ex.Message}", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    _logger.LogWarning($"Не удалось сохранить наборы с ошибкой: {ex.Message}");
                 }
             }
         }

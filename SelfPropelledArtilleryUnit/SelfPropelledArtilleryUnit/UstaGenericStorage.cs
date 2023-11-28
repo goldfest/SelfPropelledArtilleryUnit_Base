@@ -6,6 +6,8 @@ using System.Text;
 using SelfPropelledArtilleryUnit.Drawnings;
 using SelfPropelledArtilleryUnit.MovementStrategy;
 using SelfPropelledArtilleryUnit.DrawningObjects;
+using SelfPropelledArtilleryUnit.Exceptions;
+
 namespace SelfPropelledArtilleryUnit.Generics
 
 {
@@ -100,7 +102,7 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// </summary>
         /// <param name="filename">Путь и имя файла</param>
         /// <returns>true - сохранение прошло успешно, false - ошибка при сохранении данных</returns>
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
@@ -118,15 +120,14 @@ namespace SelfPropelledArtilleryUnit.Generics
             }
             if (data.Length == 0)
             {
-                return false;
+                throw new Exception("Невалидная операция, нет данных для сохранения");
             }
 
             using (StreamWriter writer = new StreamWriter(filename))
             {
                 writer.Write($"UstaStorage{Environment.NewLine}{data}");
+                writer.Write(data.ToString());
             }
-
-            return true;
         }
 
         /// <summary>
@@ -134,11 +135,11 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// </summary>
         /// <param name="filename">Путь и имя файла</param>
         /// <returns>true - загрузка прошла успешно, false - ошибка при загрузке данных</returns>
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new Exception("Файл не найден");
             }
 
             using (StreamReader reader = new StreamReader(filename))
@@ -146,11 +147,11 @@ namespace SelfPropelledArtilleryUnit.Generics
                 string cheker = reader.ReadLine();
                 if (cheker == null)
                 {
-                    return false;
+                    throw new Exception("Нет данных для загрузки");
                 }
                 if (!cheker.StartsWith("UstaStorage"))
                 {
-                    return false;
+                    throw new Exception("Неверный формат ввода");
                 }
                 _ustaStorages.Clear();
                 string strs;
@@ -159,11 +160,11 @@ namespace SelfPropelledArtilleryUnit.Generics
                 {
                     if (strs == null && firstinit)
                     {
-                        return false;
+                        throw new Exception("Нет данных для загрузки");
                     }
                     if (strs == null)
                     {
-                        return false;
+                        break;
                     }
                     firstinit = false;
                     string name = strs.Split(_separatorForKeyValue)[0];
@@ -174,16 +175,19 @@ namespace SelfPropelledArtilleryUnit.Generics
                         data?.CreateDrawningUsta(_separatorForObject, _pictureWidth, _pictureHeight);
                         if (usta != null)
                         {
-                            int? result = collection + usta;
-                            if (result == null || result.Value == -1)
+                            try { _ = collection + usta; }
+                            catch (UstaNotFoundException e)
                             {
-                                return false;
+                                throw e;
+                            }
+                            catch (StorageOverflowException e)
+                            {
+                                throw e;
                             }
                         }
                     }
                     _ustaStorages.Add(name, collection);
                 }
-                return true;
             }
         }
     }
