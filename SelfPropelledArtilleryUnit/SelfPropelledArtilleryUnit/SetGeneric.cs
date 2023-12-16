@@ -65,8 +65,13 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <returns></returns>
         public bool Remove(int position)
         {
-            if ((position < 0) || (position > _maxCount)) return false;
-            _places.RemoveAt(position);
+            if (position < 0 || position > _maxCount || position >= Count)
+                throw new UstaNotFoundException();
+            if (_places[position] == null)
+            {
+                throw new UstaNotFoundException();
+            }
+            _places[position] = null;
             return true;
         }
         /// <summary>

@@ -95,7 +95,7 @@ namespace SelfPropelledArtilleryUnit.DrawningObjects
         public void SetPosition(int x, int y)
         {
             // TODO: Изменение x, y, если при установке объект выходит за границы
-            if (x < 0 || y < 0 || x + _ustaWidth > _pictureWidth || y + _ustaHeight > _pictureHeight)
+            if (x < 0 || y < 0 )
             {
                 x = 10;
                 y = 10;

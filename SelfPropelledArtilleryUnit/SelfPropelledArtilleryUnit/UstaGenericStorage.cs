@@ -126,7 +126,6 @@ namespace SelfPropelledArtilleryUnit.Generics
             using (StreamWriter writer = new StreamWriter(filename))
             {
                 writer.Write($"UstaStorage{Environment.NewLine}{data}");
-                writer.Write(data.ToString());
             }
         }
 

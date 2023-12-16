@@ -30,6 +30,7 @@ namespace SelfPropelledArtilleryUnit
             InitializeComponent();
             _storage = new UstaGenericStorage(pictureBoxCollection.Width,
             pictureBoxCollection.Height);
+            _logger = logger;
         }
         /// <summary>
         /// Заполнение listBoxObjects
@@ -171,17 +172,24 @@ namespace SelfPropelledArtilleryUnit
                 return;
             }
             int pos = Convert.ToInt32(maskedTextBoxNumber.Text);
-            if (obj - pos != null)
+            try
             {
-                MessageBox.Show("Объект удален");
-                pictureBoxCollection.Image = obj.ShowUsta();
-                _logger.LogInformation($"Удален объект из набора {listBoxStorage.SelectedItem.ToString()}");
+                if (obj - pos != null)
+                {
+                    MessageBox.Show("Объект удален");
+                    pictureBoxCollection.Image = obj.ShowUsta();
+                    _logger.LogInformation($"Удален объект из набора {listBoxStorage.SelectedItem.ToString()}");
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось удалить объект");
+                    _logger.LogWarning($"Не удалось удалить объект из набора {listBoxStorage.SelectedItem.ToString()}");
+                }
             }
-            else
+            catch (UstaNotFoundException ex)
             {
-                MessageBox.Show("Не удалось удалить объект");
-                _logger.LogWarning($"Не удалось удалить объект из набора {listBoxStorage.SelectedItem.ToString()}");
-
+                MessageBox.Show(ex.Message);
+                _logger.LogWarning($"{ex.Message} из набора {listBoxStorage.SelectedItem.ToString()}");
             }
         }
         /// <summary>

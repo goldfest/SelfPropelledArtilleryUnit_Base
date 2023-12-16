@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SelfPropelledArtilleryUnit.Exceptions
+namespace SelfPropelledArtilleryUnit
 {
     [Serializable] internal class UstaNotFoundException : ApplicationException
     {

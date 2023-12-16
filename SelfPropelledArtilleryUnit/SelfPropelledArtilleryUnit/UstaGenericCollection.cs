@@ -57,14 +57,14 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <param name="collect"></param>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int? operator +(UstaGenericCollection<T, U> collect, T?
+        public static int operator +(UstaGenericCollection<T, U> collect, T?
         obj)
         {
             if (obj == null)
             {
                 return -1;
             }
-            return collect?._collection.Insert(obj);
+            return collect?._collection.Insert(obj) ?? -1;
         }
         /// <summary>
         /// Перегрузка оператора вычитания
@@ -72,15 +72,15 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <param name="collect"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public static bool operator -(UstaGenericCollection<T, U> collect, int
+        public static T operator -(UstaGenericCollection<T, U> collect, int
         pos)
         {
-            T? obj = collect._collection[pos];
+            T obj = collect._collection[pos];
             if (obj != null)
             {
-                return collect._collection.Remove(pos);
+                collect?._collection.Remove(pos);
             }
-            return false;
+            return obj;
         }
         /// <summary>
         /// Получение объекта IMoveableObject
