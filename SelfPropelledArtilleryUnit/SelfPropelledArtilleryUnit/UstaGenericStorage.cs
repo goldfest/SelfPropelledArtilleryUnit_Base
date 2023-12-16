@@ -16,12 +16,12 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <summary>
         /// Словарь (хранилище)
         /// </summary>
-        readonly Dictionary<string, UstaGenericCollection<DrawningUsta,
+        readonly Dictionary<UstaCollectionInfo, UstaGenericCollection<DrawningUsta,
         DrawningObjectUsta>> _ustaStorages;
         /// <summary>
         /// Возвращение списка названий наборов
         /// </summary>
-        public List<string> Keys => _ustaStorages.Keys.ToList();
+        public List<UstaCollectionInfo> Keys => _ustaStorages.Keys.ToList();
         /// <summary>
         /// Ширина окна отрисовки
         /// </summary>
@@ -49,7 +49,7 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <param name="pictureHeight"></param>
         public UstaGenericStorage(int pictureWidth, int pictureHeight)
         {
-            _ustaStorages = new Dictionary<string,
+            _ustaStorages = new Dictionary<UstaCollectionInfo,
             UstaGenericCollection<DrawningUsta, DrawningObjectUsta>>();
             _pictureWidth = pictureWidth;
             _pictureHeight = pictureHeight;
@@ -61,10 +61,10 @@ namespace SelfPropelledArtilleryUnit.Generics
         public void AddSet(string name)
         {
             // TODO Прописать логику для добавления
-            if (!_ustaStorages.ContainsKey(name))
+            if (!_ustaStorages.ContainsKey(new UstaCollectionInfo(name, string.Empty)))
             {
                 var ustaCollection = new UstaGenericCollection<DrawningUsta, DrawningObjectUsta>(_pictureWidth, _pictureHeight);
-                _ustaStorages.Add(name, ustaCollection);
+                _ustaStorages.Add(new UstaCollectionInfo(name, string.Empty), ustaCollection);
             }
         }
         /// <summary>
@@ -74,9 +74,9 @@ namespace SelfPropelledArtilleryUnit.Generics
         public void DelSet(string name)
         {
             // TODO Прописать логику для удаления
-            if (_ustaStorages.ContainsKey(name))
+            if (_ustaStorages.ContainsKey(new UstaCollectionInfo(name, string.Empty)))
             {
-                _ustaStorages.Remove(name);
+                _ustaStorages.Remove(new UstaCollectionInfo(name, string.Empty));
             }
         }
         /// <summary>
@@ -88,10 +88,11 @@ namespace SelfPropelledArtilleryUnit.Generics
         {
             get
             {
+                UstaCollectionInfo indObj = new UstaCollectionInfo(ind, string.Empty);
                 // TODO Продумать логику получения набора
-                if (_ustaStorages.ContainsKey(ind))
+                if (_ustaStorages.ContainsKey(indObj))
                 {
-                    return _ustaStorages[ind];
+                    return _ustaStorages[indObj];
                 }
                 return null;
 
@@ -109,14 +110,14 @@ namespace SelfPropelledArtilleryUnit.Generics
                 File.Delete(filename);
             }
             StringBuilder data = new();
-            foreach (KeyValuePair<string, UstaGenericCollection<DrawningUsta, DrawningObjectUsta>> record in _ustaStorages)
+            foreach (KeyValuePair<UstaCollectionInfo, UstaGenericCollection<DrawningUsta, DrawningObjectUsta>> record in _ustaStorages)
             {
                 StringBuilder records = new();
                 foreach (DrawningUsta? elem in record.Value.GetUsta)
                 {
                     records.Append($"{elem?.GetDataForSave(_separatorForObject)}{_separatorRecords}");
                 }
-                data.AppendLine($"{record.Key}{_separatorForKeyValue}{records}");
+                data.AppendLine($"{record.Key.Name}{_separatorForKeyValue}{records}");
             }
             if (data.Length == 0)
             {
@@ -185,7 +186,7 @@ namespace SelfPropelledArtilleryUnit.Generics
                             }
                         }
                     }
-                    _ustaStorages.Add(name, collection);
+                    _ustaStorages.Add(new UstaCollectionInfo(name, string.Empty), collection);
                 }
             }
         }

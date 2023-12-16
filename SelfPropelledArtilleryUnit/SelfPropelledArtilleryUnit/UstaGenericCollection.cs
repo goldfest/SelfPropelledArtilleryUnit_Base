@@ -38,6 +38,7 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// Набор объектов
         /// </summary>
         private readonly SetGeneric<T> _collection;
+        public void Sort(IComparer<T?> comparer) => _collection.SortSet(comparer);
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -57,14 +58,14 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <param name="collect"></param>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static int operator +(UstaGenericCollection<T, U> collect, T?
+        public static bool operator +(UstaGenericCollection<T, U> collect, T?
         obj)
         {
             if (obj == null)
             {
-                return -1;
+                return false;
             }
-            return collect?._collection.Insert(obj) ?? -1;
+            return collect?._collection.Insert(obj, new DrawningUstaEqutables()) ?? false;
         }
         /// <summary>
         /// Перегрузка оператора вычитания
@@ -72,7 +73,7 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// <param name="collect"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public static T operator -(UstaGenericCollection<T, U> collect, int
+        public static T? operator -(UstaGenericCollection<T, U> collect, int
         pos)
         {
             T obj = collect._collection[pos];

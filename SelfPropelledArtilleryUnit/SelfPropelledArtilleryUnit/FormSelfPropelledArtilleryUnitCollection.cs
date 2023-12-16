@@ -41,7 +41,7 @@ namespace SelfPropelledArtilleryUnit
             listBoxStorage.Items.Clear();
             for (int i = 0; i < _storage.Keys.Count; i++)
             {
-                listBoxStorage.Items.Add(_storage.Keys[i]);
+                listBoxStorage.Items.Add(_storage.Keys[i].Name);
             }
             if (listBoxStorage.Items.Count > 0 && (index == -1 || index
             >= listBoxStorage.Items.Count))
@@ -70,7 +70,7 @@ namespace SelfPropelledArtilleryUnit
             }
             _storage.AddSet(textBoxStorageName.Text);
             ReloadObjects();
-            _logger.LogInformation($"Добавлен набор:{ textBoxStorageName.Text}");
+            _logger.LogInformation($"Добавлен набор:{textBoxStorageName.Text}");
 
         }
         /// <summary>
@@ -254,9 +254,29 @@ namespace SelfPropelledArtilleryUnit
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Не загрузилось: {ex.Message}", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    _logger.LogWarning($"Не удалось сохранить наборы с ошибкой: {ex.Message}");
+                    _logger.LogWarning($"Не удалось загрузить наборы с ошибкой: {ex.Message}");
                 }
             }
+        }
+
+        private void ButtonSortByType_Click(object sender, EventArgs e) => CompareUsta(new UstaCompareByType());
+
+        private void ButtonSortByColor_Click(object sender, EventArgs e) => CompareUsta(new UstaCompareByColor());
+
+        private void CompareUsta(IComparer<DrawningUsta?> comparer)
+        {
+            if (listBoxStorage.SelectedIndex == -1)
+            {
+                return;
+            }
+            var obj = _storage[listBoxStorage.SelectedItem.ToString() ??
+            string.Empty];
+            if (obj == null)
+            {
+                return;
+            }
+            obj.Sort(comparer);
+            pictureBoxCollection.Image = obj.ShowUsta();
         }
 
 

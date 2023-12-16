@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SelfPropelledArtilleryUnit.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,7 @@ namespace SelfPropelledArtilleryUnit.Generics
         /// Максимальное количество объектов в списке
         /// </summary>
         private readonly int _maxCount;
+        public void SortSet(IComparer<T?> comparer) => _places.Sort(comparer);
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -33,29 +35,31 @@ namespace SelfPropelledArtilleryUnit.Generics
         public SetGeneric(int count)
         {
             _maxCount = count;
-            _places = new List<T?>(count);
+            _places = new List<T?>(_maxCount);
         }
         /// <summary>
         /// Добавление объекта в набор
-        public int Insert(T usta)
+        public bool Insert(T usta, IEqualityComparer<T>? equal = null)
         {
-
-            return Insert(usta, 0);
+            Insert(usta, 0, equal);
+            return true;
         }
 
         /// <returns></returns>
-        public int Insert(T usta, int position)
+        public bool Insert(T usta, int position, IEqualityComparer<T>? equal = null)
         {
             if (position < 0 || position >= _maxCount)
-                return -1;
+                throw new UstaNotFoundException(position);
 
             if (Count >= _maxCount)
-                return -1;
-
-
-
+                throw new StorageOverflowException(position);
+            if (equal != null)
+            {
+                if (_places.Contains(usta, equal))
+                    throw new ArgumentException(nameof(usta));
+            }
             _places.Insert(position, usta);
-            return position;
+            return true;
         }
 
         /// <summary>
